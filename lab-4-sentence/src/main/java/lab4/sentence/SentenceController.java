@@ -2,7 +2,8 @@ package lab4.sentence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
+
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,10 +19,11 @@ import java.util.List;
 public class SentenceController {
 
     @Autowired
-    private DiscoveryClient client;
+    private LoadBalancerClient client;
 
     @RequestMapping("/sentence")
-    public @ResponseBody
+    public
+    @ResponseBody
     String getSentence() {
         return
                 getWord("LAB-4-SUBJECT") + " "
@@ -33,12 +35,9 @@ public class SentenceController {
     }
 
     public String getWord(String service) {
-        List<ServiceInstance> list = client.getInstances(service);
-        if (list != null && list.size() > 0 ) {
-            URI uri = list.get(0).getUri();
-            if (uri !=null ) {
-                return (new RestTemplate()).getForObject(uri,String.class);
-            }
+        ServiceInstance serviceInstance = client.choose(service);
+        if (serviceInstance != null) {
+            return (new RestTemplate()).getForObject(serviceInstance.getUri(), String.class);
         }
         return null;
     }
