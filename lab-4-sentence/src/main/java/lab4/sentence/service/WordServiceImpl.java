@@ -37,12 +37,14 @@ public class WordServiceImpl implements WordService {
         return articleDao.getArticle();
     }
 
+    @HystrixCommand(fallbackMethod = "getFallBackNoun")
     @Override
     public String getNoun() {
         return nounDao.getNoun();
     }
 
     @Override
+    @HystrixCommand(fallbackMethod = "getFallBackSubject")
     public String getSubject() {
         return subjectDao.getSubject();
     }
@@ -52,7 +54,18 @@ public class WordServiceImpl implements WordService {
         return verDao.getVerb();
     }
 
+    @SuppressWarnings(value = "unused")
     public String getFallBackAdjective() {
         return "";
+    }
+
+    @SuppressWarnings(value = "unused")
+    public String getFallBackSubject() {
+        return "someone";
+    }
+
+    @SuppressWarnings(value = "unused")
+    public String getFallBackNoun() {
+        return "something";
     }
 }
