@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by i.lopushen on 19/07/2016.
  */
-@FeignClient("LAB-4-ARTICLE")
+@FeignClient("ARTICLE")
 public interface ArticleDao {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     String getArticle();
