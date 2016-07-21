@@ -4,6 +4,7 @@ import com.netflix.turbine.init.TurbineInit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
@@ -19,6 +20,7 @@ import javax.annotation.PostConstruct;
 @EnableHystrix
 @EnableHystrixDashboard
 @EnableTurbine
+@ConfigurationProperties
 public class Lab4SentenceApplication {
 
 	public static void main(String[] args) {
