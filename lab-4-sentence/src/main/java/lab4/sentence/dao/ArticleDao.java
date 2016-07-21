@@ -1,5 +1,6 @@
 package lab4.sentence.dao;
 
+import lab4.sentence.domain.Word;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient("ARTICLE")
 public interface ArticleDao {
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    String getArticle();
+    Word getArticle();
 }

@@ -14,9 +14,9 @@ public class WordController {
     private String words;
 
     @RequestMapping("/")
-    public String getWord() {
+    public Word getWord() {
         String[] wordArray = words.split(",");
         int i = (int)Math.round(Math.random() * (wordArray.length - 1));
-        return wordArray[i];
+        return new Word(wordArray[i]);
     }
 }
